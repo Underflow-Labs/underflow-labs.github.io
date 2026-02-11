@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { navigationItems } from "../content/es/navigation";
 import { BOOK_CALL_URL } from "../config/links";
+import { BrandMark } from "../components/ui/BrandMark";
 import { Button } from "../components/ui/Button";
 import { cn } from "../lib/cn";
 
@@ -9,8 +10,9 @@ export function SiteLayout() {
     <div className="min-h-screen bg-bg-primary">
       <header className="sticky top-0 z-40 border-b border-border-base bg-bg-primary/90 backdrop-blur-sm">
         <div className="site-container flex h-16 items-center justify-between gap-6">
-          <NavLink to="/" className="font-heading text-base font-semibold tracking-wide">
-            Underflow Labs
+          <NavLink to="/" className="inline-flex items-center gap-2 font-heading text-base font-semibold tracking-wide">
+            <BrandMark />
+            <span>Underflow Labs</span>
           </NavLink>
           <nav className="hidden items-center gap-4 lg:flex">
             {navigationItems.map((item) => (
@@ -49,7 +51,10 @@ export function SiteLayout() {
 
       <footer className="border-t border-border-base py-10">
         <div className="site-container flex flex-col gap-3 text-sm text-text-secondary sm:flex-row sm:items-center sm:justify-between">
-          <p>Underflow Labs</p>
+          <p className="inline-flex items-center gap-2">
+            <BrandMark />
+            <span>Underflow Labs</span>
+          </p>
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">
             Websites + Automatizaciones
           </p>
