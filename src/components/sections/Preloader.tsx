@@ -24,13 +24,14 @@ export function Preloader({ onEnter }: PreloaderProps) {
 
     return (
         <div className={`ag-preloader-root ${isExiting ? 'exit' : ''} ${isReady ? 'ready' : ''}`}>
+            <div className="ag-noise-overlay" />
             <div className="ag-preloader-content">
                 <div className="ag-preloader-logo-wrapper">
                     <BrandMark />
                 </div>
 
                 <div className="ag-preloader-branding">
-                    <h2 className="ag-preloader-title">Underflow Labs</h2>
+                    <h2 className="ag-preloader-title">Underflow Labs<sup>&reg;</sup></h2>
                     <p className="ag-preloader-subtitle font-mono">Senior-led Software Studio</p>
                 </div>
 
