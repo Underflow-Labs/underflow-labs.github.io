@@ -1,0 +1,148 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import "./styles/tokens.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    @apply min-h-full;
+  }
+
+  body {
+    @apply bg-bg-primary text-text-primary font-body antialiased;
+    background-image:
+      radial-gradient(circle at 100% -20%, rgba(89, 184, 255, 0.08), transparent 32%),
+      radial-gradient(circle at -10% 120%, rgba(232, 255, 89, 0.06), transparent 34%);
+  }
+
+  a {
+    @apply text-inherit no-underline;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .site-container {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .panel {
+    @apply rounded-2xl border border-border-base bg-bg-surface;
+  }
+
+  .nav-link {
+    @apply relative py-2 text-sm text-text-secondary transition-colors duration-200 hover:text-text-primary;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    width: 100%;
+    height: 1px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 220ms ease;
+    background: var(--accent-primary);
+  }
+
+  .nav-link-active {
+    @apply text-text-primary;
+  }
+
+  .nav-link-active::after {
+    transform: scaleX(1);
+  }
+
+  .signal-sweep {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .signal-sweep::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-130%);
+    background: linear-gradient(90deg, transparent, rgba(12, 13, 14, 0.25), transparent);
+    transition: transform 340ms ease;
+  }
+
+  .signal-sweep:hover::before {
+    transform: translateX(130%);
+  }
+
+  .flow-grid {
+    background-image:
+      linear-gradient(to right, var(--border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+    background-size: 36px 36px;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), transparent);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 420ms ease, transform 420ms ease;
+  }
+
+  .reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes flowDash {
+  to {
+    stroke-dashoffset: -32;
+  }
+}
+
+@keyframes nodePulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+}
+
+@keyframes railSweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(140%);
+  }
+}
+
+.flow-line {
+  stroke-dasharray: 6 10;
+  animation: flowDash 5s linear infinite;
+}
+
+.node-pulse {
+  transform-origin: center;
+  animation: nodePulse 3.1s ease-in-out infinite;
+}
+
+.processing-rail::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(89, 184, 255, 0.14), transparent);
+  animation: railSweep 3.2s linear infinite;
+}

@@ -1,0 +1,17 @@
+:root {
+  --bg-primary: #0c0d0e;
+  --bg-elevated: #141517;
+  --bg-surface: #1c1d21;
+
+  --text-primary: #f0ede8;
+  --text-secondary: #8a8680;
+  --text-muted: #504e4a;
+
+  --accent-primary: #e8ff59;
+  --accent-alt: #59b8ff;
+  --accent-warn: #ff6b4a;
+  --accent-green: #1b5e20;
+
+  --border: rgba(240, 237, 232, 0.08);
+  --border-hover: rgba(240, 237, 232, 0.15);
+}
