@@ -5,12 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Underflow Labs crea websites orientados a conversion y automatizaciones para reducir trabajo manual en empresas de LatAm."
+      content="Underflow Labs crea websites orientados a conversión y automatizaciones con IA aplicada para reducir trabajo manual en empresas de LatAm."
     />
+
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Underflow Labs</title>
+
+    <!-- Preconnect for fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <title>Underflow Labs | Websites y Automatizaciones</title>
+
+    <!-- GitHub Pages SPA redirect handler -->
+    <script>
+      (function(l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&');
+          }).join('?');
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      }(window.location));
+    </script>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Underflow Labs",
+      "url": "https://underflowlabs.com",
+      "description": "Diseñamos websites orientados a conversión y automatizaciones con IA aplicada para empresas de LatAm.",
+      "foundingDate": "2025",
+      "areaServed": "Latin America",
+      "knowsAbout": ["Web Development", "Marketing Automation", "AI Integration", "SEO", "UX Design"],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servicios",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Websites que venden",
+              "description": "Rediseño o sitio nuevo orientado a conversión: claridad comercial, performance, SEO técnico y confianza."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Automatizaciones con IA aplicada",
+              "description": "Conectamos CRM, WhatsApp, email, formularios y reportes para eliminar tareas repetitivas y errores operativos."
+            }
+          }
+        ]
+      }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿En cuánto tiempo podemos tener resultados?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Depende del alcance, pero trabajamos en sprints. En websites, los primeros entregables suelen verse en 2 a 4 semanas. En automatizaciones, en 1 a 2 semanas ya puede haber flujos piloto."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿El código y los activos quedan en propiedad del cliente?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. El cliente mantiene propiedad del código, contenidos y configuraciones entregadas en el proyecto."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Ofrecen soporte y mantenimiento?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Podemos trabajar por sprint puntual o por esquema mensual de mejora continua y soporte técnico."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Se integran con nuestro CRM o herramientas actuales?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Diseñamos sobre tu stack actual siempre que sea viable, priorizando impacto y evitando reemplazos innecesarios."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo garantizan calidad antes de publicar?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Usamos checklist de QA técnico y de UX: responsive, velocidad, formularios, eventos clave y revisión de accesibilidad básica."
+          }
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
+    <noscript>
+      <div style="padding:2rem;max-width:600px;margin:auto;font-family:sans-serif;color:#f0ede8;background:#0c0d0e;min-height:100vh">
+        <h1>Underflow Labs</h1>
+        <p>Websites que convierten y automatizaciones que te devuelven horas.</p>
+        <p>Ayudamos a empresas de LatAm a vender mejor con sitios modernos y a operar con menos carga manual mediante flujos automatizados.</p>
+        <p>Contacto: <a href="mailto:hola@underflowlabs.com" style="color:#e8ff59">hola@underflowlabs.com</a></p>
+      </div>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

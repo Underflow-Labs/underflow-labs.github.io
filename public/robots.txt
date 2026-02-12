@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://underflowlabs.com/sitemap.xml
+Sitemap: https://underflow-labs.github.io/sitemap.xml

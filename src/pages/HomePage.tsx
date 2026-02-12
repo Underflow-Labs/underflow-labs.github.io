@@ -3,7 +3,6 @@ import { HomeFinalCtaSection } from "../components/sections/HomeFinalCtaSection"
 import { HomeHeroSection } from "../components/sections/HomeHeroSection";
 import { PackagesSection } from "../components/sections/PackagesSection";
 import { ProcessStepsSection } from "../components/sections/ProcessStepsSection";
-import { ProofSection } from "../components/sections/ProofSection";
 import { ServicesDualSection } from "../components/sections/ServicesDualSection";
 import { PageMeta } from "../components/seo/PageMeta";
 
@@ -17,7 +16,6 @@ export function HomePage() {
       />
       <HomeHeroSection />
       <ServicesDualSection />
-      <ProofSection />
       <ProcessStepsSection />
       <PackagesSection />
       <FaqSection />
