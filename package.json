@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "homepage": "https://underflow-labs.github.io/underflowlabs.github.io/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build", 
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "react": "^18.3.1",
