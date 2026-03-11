@@ -1,14 +1,7 @@
 import { Link } from "react-router-dom";
-import { PointerEventHandler, useEffect, useRef, useState } from "react";
-import {
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-} from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { BOOK_CALL_URL } from "../../config/links";
-import { HeroFlowVisual } from "../ui/HeroFlowVisual";
+import { WavyBackground } from "../ui/wavy-background";
 
 const primaryCtaClasses =
   "signal-sweep inline-flex items-center justify-center rounded-xl bg-accent-primary px-5 py-3 text-sm font-semibold tracking-wide text-bg-primary shadow-signal transition-all duration-200 hover:-translate-y-0.5";
@@ -16,31 +9,16 @@ const primaryCtaClasses =
 const secondaryCtaClasses =
   "inline-flex items-center justify-center rounded-xl border border-border-base bg-transparent px-5 py-3 text-sm font-semibold tracking-wide text-text-primary transition-all duration-200 hover:border-border-hover hover:bg-bg-surface";
 
+const heroWaveColors = [
+  "rgba(175, 220, 101, 0.96)",
+  "rgba(175, 220, 101, 0.88)",
+  "rgba(119, 207, 186, 0.82)",
+  "rgba(254, 255, 255, 0.58)",
+  "rgba(175, 220, 101, 0.72)",
+];
+
 export function HomeHeroSection() {
-  const heroRef = useRef<HTMLElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
-  const [hasFinePointer, setHasFinePointer] = useState(false);
-
-  const pointerXRaw = useMotionValue(0);
-  const pointerYRaw = useMotionValue(0);
-  const pointerX = useSpring(pointerXRaw, { stiffness: 90, damping: 20, mass: 0.5 });
-  const pointerY = useSpring(pointerYRaw, { stiffness: 90, damping: 20, mass: 0.5 });
-
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const media = window.matchMedia("(pointer: fine)");
-    const apply = () => setHasFinePointer(media.matches);
-
-    apply();
-    media.addEventListener("change", apply);
-    return () => media.removeEventListener("change", apply);
-  }, []);
 
   const easing: [number, number, number, number] = [0.22, 1, 0.36, 1];
   const getTransition = (delay = 0) =>
@@ -48,42 +26,23 @@ export function HomeHeroSection() {
       ? { duration: 0 }
       : { duration: 0.52, delay, ease: easing };
 
-  const handlePointerMove: PointerEventHandler<HTMLElement> = (event) => {
-    if (prefersReducedMotion || !hasFinePointer || event.pointerType !== "mouse") return;
-
-    const rect = event.currentTarget.getBoundingClientRect();
-    const nextX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-    const nextY = ((event.clientY - rect.top) / rect.height) * 2 - 1;
-    pointerXRaw.set(Math.max(-1, Math.min(1, nextX)));
-    pointerYRaw.set(Math.max(-1, Math.min(1, nextY)));
-  };
-
-  const handlePointerLeave = () => {
-    pointerXRaw.set(0);
-    pointerYRaw.set(0);
-  };
-
   return (
-    <section
-      ref={heroRef}
-      className="hero-surface relative flex min-h-[62vh] items-center overflow-hidden border-b border-border-base/80 lg:min-h-[72vh]"
-      onPointerMove={handlePointerMove}
-      onPointerLeave={handlePointerLeave}
-    >
-      <HeroFlowVisual
-        className="scale-[1.02] md:scale-100"
-        animate={!prefersReducedMotion}
-        intensity="medium"
-        pointerX={pointerX}
-        pointerY={pointerY}
-        scrollYProgress={scrollYProgress}
-        reducedMotion={Boolean(prefersReducedMotion)}
+    <section className="relative overflow-hidden border-b border-border-base/80">
+      <WavyBackground
+        containerClassName="hero-surface absolute inset-0 pointer-events-none"
+        colors={heroWaveColors}
+        waveWidth={56}
+        backgroundFill="#0c0d0e"
+        blur={8}
+        speed={prefersReducedMotion ? "slow" : "fast"}
+        waveOpacity={0.26}
+        aria-hidden="true"
       />
 
-      <div className="hero-readability-mask absolute inset-0" aria-hidden="true" />
-      <div className="hero-readability-vignette absolute inset-0" aria-hidden="true" />
+      <div className="hero-readability-mask absolute inset-0 z-10" aria-hidden="true" />
+      <div className="hero-readability-vignette absolute inset-0 z-10" aria-hidden="true" />
 
-      <div className="site-container relative z-10 py-16 sm:py-20">
+      <div className="site-container relative z-20 flex min-h-[62vh] flex-col justify-center py-16 sm:py-20 lg:min-h-[72vh]">
         <motion.div
           initial={prefersReducedMotion ? false : { opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
