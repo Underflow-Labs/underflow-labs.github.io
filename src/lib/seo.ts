@@ -10,6 +10,8 @@ const organizationNode = {
   email: CONTACT_EMAIL,
 };
 
+const BLOG_INDEX_IMAGE = `${SITE_URL}/og/blog/index.png`;
+
 export function buildWebsiteSchema() {
   return {
     "@context": "https://schema.org",
@@ -67,6 +69,7 @@ export function buildBlogSchema(posts: BlogPostSummary[]) {
     url: `${SITE_URL}/blog`,
     description:
       "Articulos practicos sobre GEO, SEO, websites de conversion, automatizacion y software a medida.",
+    image: BLOG_INDEX_IMAGE,
     publisher: organizationNode,
     blogPost: posts.map((post) => ({
       "@type": "BlogPosting",
@@ -75,6 +78,7 @@ export function buildBlogSchema(posts: BlogPostSummary[]) {
       datePublished: post.publishedAt,
       dateModified: post.updatedAt,
       articleSection: post.category,
+      image: `${SITE_URL}${post.coverImage}`,
     })),
   };
 }
@@ -101,6 +105,6 @@ export function buildBlogPostingSchema(post: BlogPostSummary, author: BlogAuthor
       sameAs: [author.linkedin],
     },
     publisher: organizationNode,
-    image: `${SITE_URL}${author.image}`,
+    image: `${SITE_URL}${post.coverImage}`,
   };
 }

@@ -5,6 +5,7 @@
 - Blog file-based en `src/content/blog/*.md`
 - Manifest generado automaticamente en `src/generated/blog-manifest.ts`
 - `sitemap.xml`, `rss.xml`, `llms.txt`, `llms-full.txt` y `blog-index.json` regenerados desde un solo comando
+- Portadas sociales PNG generadas automaticamente en `public/og/blog/`
 - Prerender estatico de las rutas importantes y del blog durante `npm run build`
 - Workflow de deploy por GitHub Actions para que publicar despues sea compatible con agentes
 
@@ -44,6 +45,8 @@ featured: false
 npm run content:sync
 npm run build
 ```
+
+`npm run content:sync` ahora tambien genera automaticamente la portada social de cada articulo.
 
 `npm run build` ahora tambien prerenderiza las paginas para que GitHub Pages sirva HTML estatico por ruta.
 

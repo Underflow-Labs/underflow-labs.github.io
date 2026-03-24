@@ -20,6 +20,7 @@ Underflow Labs ayuda a empresas a vender mejor y operar con menos friccion media
 - URL principal: https://www.underflowlabs.com/blog
 - RSS: https://www.underflowlabs.com/rss.xml
 - Indice JSON: https://www.underflowlabs.com/blog-index.json
+- Imagen social principal: https://www.underflowlabs.com/og/blog/index.png
 
 ## Articulos
 ### Como automatizar operaciones con IA sin romper procesos ni crear mas caos
@@ -30,6 +31,7 @@ Underflow Labs ayuda a empresas a vender mejor y operar con menos friccion media
 - Categoria: Automatizacion
 - Tags: automatizacion, IA, agentes, procesos, operaciones
 - Resumen: Una guia practica para automatizar tareas operativas con IA sin perder control, calidad de datos ni trazabilidad.
+- Imagen social: https://www.underflowlabs.com/og/blog/automatizar-operaciones-con-ia-sin-romper-procesos.png
 
 ### GEO vs SEO para empresas B2B: como aparecer en Google y tambien en respuestas de IA
 - URL: https://www.underflowlabs.com/blog/geo-vs-seo-para-empresas-b2b
@@ -39,6 +41,7 @@ Underflow Labs ayuda a empresas a vender mejor y operar con menos friccion media
 - Categoria: GEO y SEO
 - Tags: GEO, SEO, contenido B2B, IA, demanda organica
 - Resumen: Entiende como combinar GEO y SEO para que tu empresa aparezca tanto en resultados de busqueda tradicionales como en respuestas generadas por IA.
+- Imagen social: https://www.underflowlabs.com/og/blog/geo-vs-seo-para-empresas-b2b.png
 
 ### Que debe tener un website industrial para convertir trafico en reuniones comerciales
 - URL: https://www.underflowlabs.com/blog/website-industrial-que-convierte-trafico-en-reuniones
@@ -48,3 +51,4 @@ Underflow Labs ayuda a empresas a vender mejor y operar con menos friccion media
 - Categoria: Websites
 - Tags: websites, conversion, industria, B2B, captacion
 - Resumen: Los websites industriales no necesitan ser ruidosos. Necesitan explicar rapido, transmitir solvencia y mover a la accion con una estructura comercial clara.
+- Imagen social: https://www.underflowlabs.com/og/blog/website-industrial-que-convierte-trafico-en-reuniones.png

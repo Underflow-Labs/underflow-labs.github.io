@@ -7,6 +7,9 @@ type PageMetaProps = {
   path: string;
   type?: "website" | "article";
   image?: string;
+  imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
   keywords?: string[];
   robots?: string;
   author?: string;
@@ -21,6 +24,9 @@ export function PageMeta({
   path,
   type = "website",
   image = "/logo.png",
+  imageAlt,
+  imageWidth,
+  imageHeight,
   keywords,
   robots = "index,follow",
   author = "Underflow Labs",
@@ -49,11 +55,15 @@ export function PageMeta({
       <meta property="og:description" content={description} />
       <meta property="og:url" content={canonical} />
       <meta property="og:image" content={imageUrl} />
+      {imageAlt ? <meta property="og:image:alt" content={imageAlt} /> : null}
+      {imageWidth ? <meta property="og:image:width" content={String(imageWidth)} /> : null}
+      {imageHeight ? <meta property="og:image:height" content={String(imageHeight)} /> : null}
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={imageUrl} />
+      {imageAlt ? <meta name="twitter:image:alt" content={imageAlt} /> : null}
 
       {type === "article" && publishedTime ? (
         <meta property="article:published_time" content={publishedTime} />

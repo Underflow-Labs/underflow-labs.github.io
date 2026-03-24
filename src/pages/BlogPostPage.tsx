@@ -156,6 +156,10 @@ export function BlogPostPage() {
         description={summary.description}
         path={summary.path}
         type="article"
+        image={summary.coverImage}
+        imageAlt={summary.coverAlt}
+        imageWidth={1200}
+        imageHeight={630}
         author={author.name}
         publishedTime={summary.publishedAt}
         modifiedTime={summary.updatedAt}
@@ -246,6 +250,20 @@ export function BlogPostPage() {
       <section className="section-spacing">
         <div className="site-container grid gap-10 xl:grid-cols-[minmax(0,46rem)_320px] xl:justify-between">
           <div className="min-w-0">
+            <div className="overflow-hidden rounded-[2rem] border border-border-base bg-bg-surface">
+              <div className="aspect-[1.91/1]">
+                <img
+                  src={summary.coverImage}
+                  alt={summary.coverAlt}
+                  width={1200}
+                  height={630}
+                  loading="eager"
+                  decoding="async"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+
             <div className="mb-6 rounded-[1.75rem] border border-border-base bg-bg-surface p-5 sm:p-6">
               <p className="font-mono text-xs uppercase tracking-[0.16em] text-text-muted">
                 En una frase
@@ -253,6 +271,49 @@ export function BlogPostPage() {
               <p className="mt-3 text-base leading-relaxed text-text-secondary sm:text-lg">
                 {summary.excerpt}
               </p>
+            </div>
+
+            <div className="mb-6 space-y-4 xl:hidden">
+              {articleHeadings.length > 0 ? (
+                <details className="rounded-[1.75rem] border border-border-base bg-bg-surface p-5">
+                  <summary className="cursor-pointer list-none font-mono text-xs uppercase tracking-[0.16em] text-text-muted">
+                    Indice del articulo
+                  </summary>
+                  <nav className="mt-4 space-y-3 border-t border-border-base pt-4">
+                    {articleHeadings.map((heading) => (
+                      <a
+                        key={heading.id}
+                        href={`#${heading.id}`}
+                        className={[
+                          "block text-sm leading-relaxed text-text-secondary transition-colors hover:text-text-primary",
+                          heading.level === 3 ? "pl-4" : "",
+                        ].join(" ")}
+                      >
+                        {heading.text}
+                      </a>
+                    ))}
+                  </nav>
+                </details>
+              ) : null}
+
+              <details className="rounded-[1.75rem] border border-border-base bg-bg-surface p-5">
+                <summary className="cursor-pointer list-none font-mono text-xs uppercase tracking-[0.16em] text-text-muted">
+                  Firma y temas
+                </summary>
+                <div className="mt-4 border-t border-border-base pt-4">
+                  <p className="text-sm leading-relaxed text-text-secondary">{author.bio}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {summary.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-border-base px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-text-secondary"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </details>
             </div>
 
             <article className="min-w-0 rounded-[2rem] border border-border-base bg-bg-surface p-6 sm:p-8 lg:p-12">
@@ -264,9 +325,33 @@ export function BlogPostPage() {
                 </p>
               )}
             </article>
+
+            <section className="mt-6 rounded-[1.75rem] border border-border-base bg-bg-surface p-5 sm:p-6 xl:hidden">
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-text-muted">
+                Aplicarlo en tu empresa
+              </p>
+              <p className="mt-4 text-sm leading-relaxed text-text-secondary">
+                Si quieres llevar esta idea a un sistema real, podemos ayudarte a bajarla a
+                procesos, website o automatizacion.
+              </p>
+              <div className="mt-6 flex flex-col gap-3">
+                <Link
+                  to={serviceRecommendation.path}
+                  className="signal-sweep inline-flex items-center justify-center rounded-xl bg-accent-primary px-5 py-3 text-sm font-semibold tracking-wide text-bg-primary shadow-signal transition-all duration-200 hover:-translate-y-0.5"
+                >
+                  {serviceRecommendation.label}
+                </Link>
+                <Link
+                  to="/contacto"
+                  className="inline-flex items-center justify-center rounded-xl border border-border-base px-5 py-3 text-sm font-semibold tracking-wide text-text-primary transition-colors hover:border-border-hover hover:bg-bg-surface"
+                >
+                  Hablar con el equipo
+                </Link>
+              </div>
+            </section>
           </div>
 
-          <aside className="space-y-4 xl:sticky xl:top-28 xl:self-start">
+          <aside className="hidden space-y-4 xl:sticky xl:top-28 xl:block xl:self-start">
             {articleHeadings.length > 0 ? (
               <section className="rounded-[2rem] border border-border-base bg-bg-surface p-6">
                 <p className="font-mono text-xs uppercase tracking-[0.16em] text-text-muted">

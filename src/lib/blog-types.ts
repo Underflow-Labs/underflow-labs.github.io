@@ -3,6 +3,8 @@ export type BlogPostSummary = {
   slug: string;
   description: string;
   excerpt: string;
+  coverImage: string;
+  coverAlt: string;
   author: string;
   category: string;
   tags: string[];

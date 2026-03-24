@@ -1,17 +1,62 @@
 import fs from "node:fs";
 import path from "node:path";
+import sharp from "sharp";
 import { marked, Renderer } from "marked";
 
 const ROOT = process.cwd();
 const BLOG_DIR = path.join(ROOT, "src", "content", "blog");
 const GENERATED_DIR = path.join(ROOT, "src", "generated");
 const PUBLIC_DIR = path.join(ROOT, "public");
+const BLOG_OG_DIR = path.join(PUBLIC_DIR, "og", "blog");
 
 const SITE_URL = "https://www.underflowlabs.com";
 const SITE_NAME = "Underflow Labs";
 const BLOG_TITLE = "Blog de GEO, SEO y automatizacion de Underflow Labs";
 const BLOG_DESCRIPTION =
   "Ideas practicas sobre GEO, SEO, automatizacion y websites de conversion para empresas que quieren crecer con mejor sistema comercial.";
+const BLOG_INDEX_IMAGE = "/og/blog/index.png";
+
+const OG_IMAGE_WIDTH = 1200;
+const OG_IMAGE_HEIGHT = 630;
+
+const headingFontData = fs
+  .readFileSync(
+    path.join(
+      ROOT,
+      "node_modules",
+      "@fontsource",
+      "syne",
+      "files",
+      "syne-latin-700-normal.woff",
+    ),
+  )
+  .toString("base64");
+
+const bodyFontData = fs
+  .readFileSync(
+    path.join(
+      ROOT,
+      "node_modules",
+      "@fontsource",
+      "space-grotesk",
+      "files",
+      "space-grotesk-latin-500-normal.woff",
+    ),
+  )
+  .toString("base64");
+
+const bodyBoldFontData = fs
+  .readFileSync(
+    path.join(
+      ROOT,
+      "node_modules",
+      "@fontsource",
+      "space-grotesk",
+      "files",
+      "space-grotesk-latin-700-normal.woff",
+    ),
+  )
+  .toString("base64");
 
 const STATIC_ROUTES = [
   { path: "/", priority: "1.0", changefreq: "weekly" },
@@ -45,6 +90,11 @@ const SERVICE_SUMMARIES = [
 ];
 
 function ensureDir(targetPath) {
+  fs.mkdirSync(targetPath, { recursive: true });
+}
+
+function resetDir(targetPath) {
+  fs.rmSync(targetPath, { recursive: true, force: true });
   fs.mkdirSync(targetPath, { recursive: true });
 }
 
@@ -215,6 +265,280 @@ function assertRequired(data, key, fileName) {
   }
 }
 
+function formatDateForCover(value) {
+  return new Intl.DateTimeFormat("es-AR", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  })
+    .format(new Date(`${value}T12:00:00Z`))
+    .replace(/\./g, "")
+    .toUpperCase();
+}
+
+function wrapText(value, maxCharsPerLine, maxLines) {
+  const words = value.split(/\s+/).filter(Boolean);
+  const lines = [];
+  let currentLine = "";
+
+  for (const word of words) {
+    const nextLine = currentLine ? `${currentLine} ${word}` : word;
+
+    if (nextLine.length <= maxCharsPerLine) {
+      currentLine = nextLine;
+      continue;
+    }
+
+    if (currentLine) {
+      lines.push(currentLine);
+      currentLine = word;
+    } else {
+      lines.push(word);
+      currentLine = "";
+    }
+
+    if (lines.length === maxLines) {
+      break;
+    }
+  }
+
+  if (currentLine && lines.length < maxLines) {
+    lines.push(currentLine);
+  }
+
+  if (!lines.length) {
+    lines.push(value);
+  }
+
+  if (lines.length > maxLines) {
+    lines.length = maxLines;
+  }
+
+  const consumedWordCount = lines.join(" ").split(/\s+/).filter(Boolean).length;
+
+  if (consumedWordCount < words.length) {
+    lines[maxLines - 1] = truncate(lines[maxLines - 1], Math.max(12, maxCharsPerLine - 2));
+  }
+
+  return lines;
+}
+
+function buildTextBlock({
+  lines,
+  x,
+  y,
+  fontSize,
+  lineHeight,
+  fill,
+  fontFamily,
+  fontWeight,
+  opacity = 1,
+}) {
+  const tspans = lines
+    .map(
+      (line, index) =>
+        `<tspan x="${x}" dy="${index === 0 ? 0 : lineHeight}">${escapeXml(line)}</tspan>`,
+    )
+    .join("");
+
+  return `<text x="${x}" y="${y}" fill="${fill}" font-family="${fontFamily}" font-size="${fontSize}" font-weight="${fontWeight}" opacity="${opacity}">${tspans}</text>`;
+}
+
+function getCoverPalette(category) {
+  const normalized = category.toLowerCase();
+
+  if (normalized.includes("automat")) {
+    return {
+      primary: "#E8FF59",
+      secondary: "#59B8FF",
+      tertiary: "#F5F2EC",
+      glow: "#B8FF7A",
+    };
+  }
+
+  if (normalized.includes("website")) {
+    return {
+      primary: "#59B8FF",
+      secondary: "#E8FF59",
+      tertiary: "#F5F2EC",
+      glow: "#A5DFFF",
+    };
+  }
+
+  if (normalized.includes("seo") || normalized.includes("geo")) {
+    return {
+      primary: "#FFB36B",
+      secondary: "#59B8FF",
+      tertiary: "#F5F2EC",
+      glow: "#FFD7AA",
+    };
+  }
+
+  if (normalized.includes("software")) {
+    return {
+      primary: "#8DD8FF",
+      secondary: "#E8FF59",
+      tertiary: "#F5F2EC",
+      glow: "#BEEAFF",
+    };
+  }
+
+  return {
+    primary: "#E8FF59",
+    secondary: "#59B8FF",
+    tertiary: "#F5F2EC",
+    glow: "#FFD7AA",
+  };
+}
+
+function createCoverSvg({ title, excerpt, category, overline, metaLine }) {
+  const palette = getCoverPalette(category);
+  const titleFontSize = title.length > 88 ? 48 : title.length > 68 ? 54 : 60;
+  const titleLineHeight = titleFontSize + 8;
+  const titleLines = wrapText(title, title.length > 88 ? 18 : title.length > 68 ? 20 : 22, 5);
+  const excerptLines = wrapText(excerpt, 22, 6);
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg width="${OG_IMAGE_WIDTH}" height="${OG_IMAGE_HEIGHT}" viewBox="0 0 ${OG_IMAGE_WIDTH} ${OG_IMAGE_HEIGHT}" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @font-face {
+        font-family: 'Syne OG';
+        src: url("data:font/woff;base64,${headingFontData}") format("woff");
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'Space Grotesk OG';
+        src: url("data:font/woff;base64,${bodyFontData}") format("woff");
+        font-weight: 500;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'Space Grotesk OG';
+        src: url("data:font/woff;base64,${bodyBoldFontData}") format("woff");
+        font-weight: 700;
+        font-style: normal;
+      }
+    </style>
+    <radialGradient id="glow-primary" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1040 82) rotate(127.097) scale(442.723 434.908)">
+      <stop stop-color="${palette.primary}" stop-opacity="0.35" />
+      <stop offset="1" stop-color="${palette.primary}" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glow-secondary" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(142 538) rotate(19.957) scale(384.933 286.661)">
+      <stop stop-color="${palette.secondary}" stop-opacity="0.28" />
+      <stop offset="1" stop-color="${palette.secondary}" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="accent-line" x1="836" y1="133" x2="1092" y2="133" gradientUnits="userSpaceOnUse">
+      <stop stop-color="${palette.primary}" stop-opacity="0.95" />
+      <stop offset="1" stop-color="${palette.secondary}" stop-opacity="0.62" />
+    </linearGradient>
+    <linearGradient id="panel-gradient" x1="820" y1="94" x2="1118" y2="516" gradientUnits="userSpaceOnUse">
+      <stop stop-color="rgba(255,255,255,0.08)" />
+      <stop offset="1" stop-color="rgba(255,255,255,0.02)" />
+    </linearGradient>
+    <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M 56 0 L 0 0 0 56" fill="none" stroke="rgba(245,242,236,0.08)" stroke-width="1" />
+    </pattern>
+    <filter id="soft-blur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="54" />
+    </filter>
+  </defs>
+
+  <rect width="${OG_IMAGE_WIDTH}" height="${OG_IMAGE_HEIGHT}" fill="#15120E" />
+  <rect width="${OG_IMAGE_WIDTH}" height="${OG_IMAGE_HEIGHT}" fill="url(#grid)" opacity="0.42" />
+  <rect width="${OG_IMAGE_WIDTH}" height="${OG_IMAGE_HEIGHT}" fill="rgba(0, 0, 0, 0.18)" />
+  <circle cx="1040" cy="82" r="250" fill="url(#glow-primary)" filter="url(#soft-blur)" />
+  <circle cx="142" cy="538" r="228" fill="url(#glow-secondary)" filter="url(#soft-blur)" />
+
+  <rect x="60" y="52" width="170" height="40" rx="20" fill="rgba(245,242,236,0.06)" stroke="rgba(245,242,236,0.14)" />
+  <text x="86" y="78" fill="${palette.tertiary}" font-family="'Space Grotesk OG'" font-size="15" font-weight="700" letter-spacing="0.18em">${escapeXml(category.toUpperCase())}</text>
+
+  <circle cx="1096" cy="72" r="5" fill="${palette.primary}" />
+  <text x="1078" y="79" fill="${palette.tertiary}" font-family="'Space Grotesk OG'" font-size="16" font-weight="700" text-anchor="end">UNDERFLOW LABS</text>
+
+  <rect x="820" y="94" width="320" height="422" rx="30" fill="rgba(245,242,236,0.04)" stroke="rgba(245,242,236,0.12)" />
+  <rect x="850" y="132" width="226" height="4" rx="2" fill="url(#accent-line)" />
+  <rect x="850" y="468" width="132" height="38" rx="19" fill="rgba(255,255,255,0.06)" stroke="rgba(245,242,236,0.12)" />
+  <text x="850" y="172" fill="${palette.primary}" font-family="'Space Grotesk OG'" font-size="15" font-weight="700" letter-spacing="0.18em">RESUMEN</text>
+  ${buildTextBlock({
+    lines: excerptLines,
+    x: 850,
+    y: 214,
+    fontSize: 20,
+    lineHeight: 30,
+    fill: palette.tertiary,
+    fontFamily: "'Space Grotesk OG'",
+    fontWeight: 500,
+    opacity: 0.92,
+  })}
+  <text x="876" y="493" fill="${palette.tertiary}" font-family="'Space Grotesk OG'" font-size="15" font-weight="700" letter-spacing="0.12em">underflowlabs.com</text>
+
+  <path d="M 1018 448 C 1078 418, 1110 372, 1142 280" stroke="${palette.secondary}" stroke-opacity="0.36" stroke-width="2" stroke-linecap="round" stroke-dasharray="8 10" />
+  <circle cx="1018" cy="448" r="9" fill="${palette.primary}" fill-opacity="0.18" stroke="${palette.primary}" stroke-width="2" />
+  <circle cx="1142" cy="280" r="9" fill="${palette.secondary}" fill-opacity="0.18" stroke="${palette.secondary}" stroke-width="2" />
+
+  <text x="72" y="138" fill="rgba(245,242,236,0.76)" font-family="'Space Grotesk OG'" font-size="16" font-weight="700" letter-spacing="0.16em">${escapeXml(overline.toUpperCase())}</text>
+  ${buildTextBlock({
+    lines: titleLines,
+    x: 72,
+    y: 190,
+    fontSize: titleFontSize,
+    lineHeight: titleLineHeight,
+    fill: palette.tertiary,
+    fontFamily: "'Syne OG'",
+    fontWeight: 700,
+  })}
+  <rect x="72" y="492" width="300" height="1" fill="rgba(245,242,236,0.12)" />
+  <text x="72" y="534" fill="rgba(245,242,236,0.92)" font-family="'Space Grotesk OG'" font-size="24" font-weight="700">${escapeXml(metaLine)}</text>
+  <text x="72" y="572" fill="rgba(245,242,236,0.56)" font-family="'Space Grotesk OG'" font-size="18" font-weight="500">Contenido pensado para captacion organica, claridad tecnica y decision comercial.</text>
+</svg>`;
+}
+
+async function writePngFromSvg(svg, filePath) {
+  await sharp(Buffer.from(svg))
+    .png({
+      compressionLevel: 9,
+      quality: 100,
+    })
+    .toFile(filePath);
+}
+
+async function writeBlogIndexCover(posts) {
+  const latestPost = posts[0];
+  const svg = createCoverSvg({
+    title: "Blog GEO, SEO y automatizacion para empresas B2B",
+    excerpt:
+      "Ideas practicas para convertir contenido en autoridad tematica, visitas cualificadas y conversaciones comerciales mas serias.",
+    category: "Editorial",
+    overline: `${posts.length} articulos · actualizacion continua`,
+    metaLine: latestPost
+      ? `Underflow Labs · ultimo update ${formatDateForCover(latestPost.updatedAt)}`
+      : "Underflow Labs · underflowlabs.com/blog",
+  });
+
+  await writePngFromSvg(svg, path.join(BLOG_OG_DIR, "index.png"));
+}
+
+async function writePostCovers(posts) {
+  await Promise.all(
+    posts.map((post) => {
+      const svg = createCoverSvg({
+        title: post.title,
+        excerpt: post.excerpt,
+        category: post.category,
+        overline: `${formatDateForCover(post.publishedAt)} · ${post.readingTimeMinutes} min de lectura`,
+        metaLine: `${post.author} · ${SITE_NAME}`,
+      });
+
+      return writePngFromSvg(svg, path.join(BLOG_OG_DIR, `${post.slug}.png`));
+    }),
+  );
+}
+
 function loadBlogPosts() {
   const files = fs
     .readdirSync(BLOG_DIR)
@@ -252,6 +576,8 @@ function loadBlogPosts() {
       updatedAt: String(data.updatedAt ?? data.publishedAt),
       featured: Boolean(data.featured),
       readingTimeMinutes: getReadingTime(body),
+      coverImage: `/og/blog/${slug}.png`,
+      coverAlt: `Portada del articulo ${String(data.title)}`,
       body,
       html: renderMarkdownToHtml(body),
       sourcePath: fileName,
@@ -261,6 +587,10 @@ function loadBlogPosts() {
 
   return posts.sort((left, right) => {
     if (left.publishedAt === right.publishedAt) {
+      if (left.featured !== right.featured) {
+        return Number(right.featured) - Number(left.featured);
+      }
+
       return left.title.localeCompare(right.title);
     }
 
@@ -329,6 +659,7 @@ function writeRss(posts) {
         `      <pubDate>${new Date(`${post.publishedAt}T12:00:00Z`).toUTCString()}</pubDate>`,
         `      <description>${escapeXml(post.description)}</description>`,
         `      <author>hola@underflowlabs.com (${escapeXml(post.author)})</author>`,
+        `      <enclosure url="${SITE_URL}${post.coverImage}" type="image/png" />`,
         categories,
         "    </item>",
       ]
@@ -395,6 +726,7 @@ function writeLlmsFullTxt(posts) {
     `- URL principal: ${SITE_URL}/blog`,
     `- RSS: ${SITE_URL}/rss.xml`,
     `- Indice JSON: ${SITE_URL}/blog-index.json`,
+    `- Imagen social principal: ${SITE_URL}${BLOG_INDEX_IMAGE}`,
     "",
     "## Articulos",
     ...posts.flatMap((post) => [
@@ -406,6 +738,7 @@ function writeLlmsFullTxt(posts) {
       `- Categoria: ${post.category}`,
       `- Tags: ${post.tags.join(", ")}`,
       `- Resumen: ${post.description}`,
+      `- Imagen social: ${SITE_URL}${post.coverImage}`,
       "",
     ]),
   ];
@@ -413,9 +746,14 @@ function writeLlmsFullTxt(posts) {
   fs.writeFileSync(path.join(PUBLIC_DIR, "llms-full.txt"), lines.join("\n"), "utf8");
 }
 
-function main() {
+async function main() {
   ensureDir(PUBLIC_DIR);
+
   const posts = loadBlogPosts();
+
+  resetDir(BLOG_OG_DIR);
+  await writeBlogIndexCover(posts);
+  await writePostCovers(posts);
 
   writeBlogManifest(posts);
   writeBlogIndexJson(posts);
@@ -427,4 +765,7 @@ function main() {
   console.log(`Contenido sincronizado: ${posts.length} articulos procesados.`);
 }
 
-main();
+main().catch((error) => {
+  console.error(error instanceof Error ? error.message : error);
+  process.exit(1);
+});

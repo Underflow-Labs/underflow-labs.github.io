@@ -15,85 +15,143 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
   return (
     <article
       className={[
-        "group flex h-full flex-col rounded-[2rem] border border-border-base bg-bg-surface transition-all duration-200 hover:-translate-y-1 hover:border-border-hover",
-        isFeatured ? "p-8 sm:p-10 lg:p-12" : "p-6 sm:p-7",
+        "group flex h-full flex-col overflow-hidden rounded-[2rem] border border-border-base bg-bg-surface transition-all duration-200 hover:-translate-y-1 hover:border-border-hover",
+        isFeatured ? "p-4 sm:p-5 lg:p-6" : "p-3 sm:p-4",
       ].join(" ")}
     >
-      <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.16em] text-text-muted">
-        <span className="rounded-full border border-border-base px-3 py-1 text-accent-primary">
-          {post.category}
-        </span>
-        <span>{formatDateLabel(post.publishedAt)}</span>
-        <span>{post.readingTimeMinutes} min</span>
-      </div>
+      {isFeatured ? (
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,420px)] lg:items-center">
+          <div className="order-2 px-2 pb-2 pt-1 lg:order-1 lg:px-3 lg:pb-3">
+            <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.16em] text-text-muted">
+              <span className="rounded-full border border-border-base px-3 py-1 text-accent-primary">
+                {post.category}
+              </span>
+              <span>{formatDateLabel(post.publishedAt)}</span>
+              <span>{post.readingTimeMinutes} min</span>
+            </div>
 
-      <div
-        className={[
-          isFeatured ? "mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_220px] lg:items-end" : "mt-5",
-        ].join(" ")}
-      >
-        <div>
-          <h3
-            className={[
-              "font-heading font-bold leading-tight text-text-primary",
-              isFeatured ? "text-4xl sm:text-5xl" : "text-2xl sm:text-3xl",
-            ].join(" ")}
-          >
-            <Link to={post.path} className="transition-colors hover:text-accent-primary">
-              {post.title}
-            </Link>
-          </h3>
+            <h3 className="mt-5 font-heading text-4xl font-bold leading-tight text-text-primary sm:text-5xl">
+              <Link to={post.path} className="transition-colors hover:text-accent-primary">
+                {post.title}
+              </Link>
+            </h3>
 
-          <p
-            className={[
-              "mt-4 max-w-3xl leading-relaxed text-text-secondary",
-              isFeatured ? "text-base sm:text-lg" : "text-sm sm:text-base",
-            ].join(" ")}
-          >
-            {post.excerpt}
-          </p>
-        </div>
-
-        {isFeatured ? (
-          <div className="rounded-2xl border border-border-base bg-bg-primary p-5">
-            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-text-muted">
-              Lectura breve
+            <p className="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary sm:text-lg">
+              {post.excerpt}
             </p>
-            <p className="mt-3 text-sm leading-relaxed text-text-secondary">
-              Un articulo corto para ordenar el tema, entender la oportunidad y bajarla a una
-              implementacion concreta.
-            </p>
-            <p className="mt-4 text-sm font-semibold text-text-primary">Por {post.author}</p>
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              {visibleTags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-border-base px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-text-secondary"
+                >
+                  {tag}
+                </span>
+              ))}
+              {hiddenTagsCount > 0 ? (
+                <span className="rounded-full border border-border-base px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-text-muted">
+                  +{hiddenTagsCount}
+                </span>
+              ) : null}
+            </div>
+
+            <div className="mt-8 flex items-center justify-between gap-4 border-t border-border-base pt-6">
+              <p className="text-xs uppercase tracking-[0.14em] text-text-muted">Por {post.author}</p>
+              <Link
+                to={post.path}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-accent-primary transition-colors hover:text-text-primary"
+              >
+                Leer articulo
+                <span aria-hidden="true">{"->"}</span>
+              </Link>
+            </div>
           </div>
-        ) : null}
-      </div>
 
-      <div className="mt-6 flex flex-wrap gap-2">
-        {visibleTags.map((tag) => (
-          <span
-            key={tag}
-            className="rounded-full border border-border-base px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-text-secondary"
+          <Link
+            to={post.path}
+            className="order-1 block overflow-hidden rounded-[1.75rem] border border-border-base bg-bg-primary lg:order-2"
           >
-            {tag}
-          </span>
-        ))}
-        {hiddenTagsCount > 0 ? (
-          <span className="rounded-full border border-border-base px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-text-muted">
-            +{hiddenTagsCount}
-          </span>
-        ) : null}
-      </div>
+            <div className="aspect-[1.91/1]">
+              <img
+                src={post.coverImage}
+                alt={post.coverAlt}
+                width={1200}
+                height={630}
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              />
+            </div>
+          </Link>
+        </div>
+      ) : (
+        <>
+          <Link
+            to={post.path}
+            className="block overflow-hidden rounded-[1.6rem] border border-border-base bg-bg-primary"
+          >
+            <div className="aspect-[1.91/1]">
+              <img
+                src={post.coverImage}
+                alt={post.coverAlt}
+                width={1200}
+                height={630}
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+              />
+            </div>
+          </Link>
 
-      <div className="mt-auto flex items-center justify-between gap-4 border-t border-border-base pt-6">
-        <p className="text-xs uppercase tracking-[0.14em] text-text-muted">Por {post.author}</p>
-        <Link
-          to={post.path}
-          className="inline-flex items-center gap-2 text-sm font-semibold text-accent-primary transition-colors hover:text-text-primary"
-        >
-          Leer articulo
-          <span aria-hidden="true">{"->"}</span>
-        </Link>
-      </div>
+          <div className="flex flex-1 flex-col px-2 pb-2 pt-5 sm:px-3 sm:pb-3">
+            <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.16em] text-text-muted">
+              <span className="rounded-full border border-border-base px-3 py-1 text-accent-primary">
+                {post.category}
+              </span>
+              <span>{formatDateLabel(post.publishedAt)}</span>
+              <span>{post.readingTimeMinutes} min</span>
+            </div>
+
+            <h3 className="mt-5 font-heading text-2xl font-bold leading-tight text-text-primary sm:text-3xl">
+              <Link to={post.path} className="transition-colors hover:text-accent-primary">
+                {post.title}
+              </Link>
+            </h3>
+
+            <p className="mt-4 text-sm leading-relaxed text-text-secondary sm:text-base">
+              {post.excerpt}
+            </p>
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              {visibleTags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-border-base px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-text-secondary"
+                >
+                  {tag}
+                </span>
+              ))}
+              {hiddenTagsCount > 0 ? (
+                <span className="rounded-full border border-border-base px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-text-muted">
+                  +{hiddenTagsCount}
+                </span>
+              ) : null}
+            </div>
+
+            <div className="mt-auto flex items-center justify-between gap-4 border-t border-border-base pt-6">
+              <p className="text-xs uppercase tracking-[0.14em] text-text-muted">Por {post.author}</p>
+              <Link
+                to={post.path}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-accent-primary transition-colors hover:text-text-primary"
+              >
+                Leer articulo
+                <span aria-hidden="true">{"->"}</span>
+              </Link>
+            </div>
+          </div>
+        </>
+      )}
     </article>
   );
 }

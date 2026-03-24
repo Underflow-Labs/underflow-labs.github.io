@@ -4,6 +4,7 @@ const trackedPaths = [
   "src/content/blog",
   "src/generated/blog-manifest.ts",
   "public/blog-index.json",
+  "public/og",
   "public/rss.xml",
   "public/sitemap.xml",
   "public/llms.txt",

@@ -19,6 +19,10 @@ export function BlogIndexPage() {
         title="Blog GEO y SEO | Underflow Labs"
         description="Articulos sobre GEO, SEO, automatizacion, websites y sistemas comerciales para empresas que quieren crecer con mejor infraestructura digital."
         path="/blog"
+        image="/og/blog/index.png"
+        imageAlt="Portada editorial del blog de Underflow Labs"
+        imageWidth={1200}
+        imageHeight={630}
         keywords={["GEO", "SEO", "automatizacion", "websites", "software a medida"]}
         schema={[
           buildBlogSchema(posts.slice(0, 12)),
