@@ -1,3 +1,5 @@
+import { SplitHeading } from "./SplitHeading";
+
 type SectionHeadingProps = {
   eyebrow?: string;
   title: string;
@@ -16,13 +18,16 @@ export function SectionHeading({
   return (
     <div className={isCenter ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
       {eyebrow ? (
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent-alt">
+        <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-accent-alt">
           {eyebrow}
         </p>
       ) : null}
-      <h2 className="mt-3 font-heading text-3xl leading-tight text-text-primary sm:text-4xl">
+      <SplitHeading
+        as="h2"
+        className="font-heading text-[clamp(2rem,5vw,4.5rem)] font-bold leading-[0.92] tracking-tight text-text-primary"
+      >
         {title}
-      </h2>
+      </SplitHeading>
       {body ? (
         <p className="mt-4 text-base leading-relaxed text-text-secondary">{body}</p>
       ) : null}

@@ -5,15 +5,38 @@
   "type": "module",
   "homepage": "https://www.underflowlabs.com/",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "npm run content:sync && vite",
+    "build": "npm run content:sync && tsc -b && vite build",
+    "content:sync": "node ./scripts/sync-content.mjs",
+    "post:new": "node ./scripts/new-post.mjs",
+    "publish:content": "node ./scripts/publish-content.mjs",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "postbuild": "react-snap"
+  },
+  "reactSnap": {
+    "source": "dist",
+    "destination": "dist",
+    "include": [
+      "/",
+      "/servicios",
+      "/servicios/websites",
+      "/servicios/automatizaciones",
+      "/servicios/software",
+      "/contacto",
+      "/blog"
+    ],
+    "skipThirdPartyRequests": true,
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox"
+    ]
   },
   "dependencies": {
     "clsx": "^2.1.1",
     "framer-motion": "^12.34.0",
+    "marked": "^17.0.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
@@ -28,6 +51,7 @@
     "autoprefixer": "^10.4.21",
     "gh-pages": "^6.3.0",
     "postcss": "^8.5.3",
+    "react-snap": "^1.23.0",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.3",
     "vite": "^6.0.5"

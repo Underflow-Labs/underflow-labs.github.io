@@ -26,8 +26,31 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.underflowlabs.com/blog</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.underflowlabs.com/contacto</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.underflowlabs.com/blog/automatizar-operaciones-con-ia-sin-romper-procesos</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.underflowlabs.com/blog/geo-vs-seo-para-empresas-b2b</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.underflowlabs.com/blog/website-industrial-que-convierte-trafico-en-reuniones</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-24</lastmod>
   </url>
 </urlset>

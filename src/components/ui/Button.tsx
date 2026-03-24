@@ -19,7 +19,7 @@ export function Button({
   return (
     <button
       className={cn(
-        "inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold tracking-wide transition-all duration-200",
+        "inline-flex items-center justify-center rounded-lg px-5 py-3 text-sm font-semibold tracking-wide transition-all duration-200",
         variant === "primary" &&
           "signal-sweep bg-accent-primary text-bg-primary shadow-signal hover:translate-y-[-1px]",
         variant === "outline" &&

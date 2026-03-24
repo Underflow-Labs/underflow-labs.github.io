@@ -19,7 +19,7 @@ const config: Config = {
         "border-hover": "var(--border-hover)"
       },
       fontFamily: {
-        heading: ["Space Grotesk", "sans-serif"],
+        heading: ["Syne", "sans-serif"],
         body: ["Space Grotesk", "sans-serif"],
         mono: ["IBM Plex Mono", "monospace"]
       },

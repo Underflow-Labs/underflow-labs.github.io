@@ -1,21 +1,26 @@
 :root {
-  --bg-primary: #0c0d0e;
-  --bg-elevated: #141517;
-  --bg-surface: #1c1d21;
-  --bg-grid-opacity: 0.042;
+  /* Backgrounds — charcoal cálido (era azulado frío) */
+  --bg-primary:  #1a1814;
+  --bg-elevated: #211f1b;
+  --bg-surface:  #2a2722;
+
+  --bg-grid-opacity:      0.042;
   --bg-hero-grid-opacity: 0.062;
-  --bg-glow-opacity: 0.22;
-  --noise-opacity: 0.02;
+  --bg-glow-opacity:      0.22;
+  --noise-opacity:        0.02;
 
-  --text-primary: #f0ede8;
-  --text-secondary: #96918a;
-  --text-muted: #504e4a;
+  /* Text — contraste mejorado */
+  --text-primary:   #f5f2ec;
+  --text-secondary: #aca8a1;
+  --text-muted:     #6e6860;
 
+  /* Accents */
   --accent-primary: #e8ff59;
-  --accent-alt: #59b8ff;
-  --accent-warn: #ff6b4a;
-  --accent-green: #1b5e20;
+  --accent-alt:     #59b8ff;
+  --accent-warn:    #ff6b4a;
+  --accent-green:   #1b5e20;
 
-  --border: rgba(240, 237, 232, 0.08);
-  --border-hover: rgba(240, 237, 232, 0.15);
+  /* Borders */
+  --border:       rgba(245, 242, 236, 0.09);
+  --border-hover: rgba(245, 242, 236, 0.18);
 }

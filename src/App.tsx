@@ -14,6 +14,8 @@ const SoftwareServicePage = lazy(() =>
   import("./pages/SoftwareServicePage").then((m) => ({ default: m.SoftwareServicePage }))
 );
 const ContactPage = lazy(() => import("./pages/ContactPage").then((m) => ({ default: m.ContactPage })));
+const BlogIndexPage = lazy(() => import("./pages/BlogIndexPage").then((m) => ({ default: m.BlogIndexPage })));
+const BlogPostPage = lazy(() => import("./pages/BlogPostPage").then((m) => ({ default: m.BlogPostPage })));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -38,6 +40,8 @@ export default function App() {
             <Route path="/servicios/automatizaciones" element={<AutomationsServicePage />} />
             <Route path="/servicios/software" element={<SoftwareServicePage />} />
             <Route path="/contacto" element={<ContactPage />} />
+            <Route path="/blog" element={<BlogIndexPage />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
 
             <Route path="/casos" element={<Navigate to="/contacto" replace />} />
             <Route path="/about" element={<Navigate to="/" replace />} />
@@ -45,7 +49,7 @@ export default function App() {
             <Route path="/case-studies" element={<Navigate to="/contacto" replace />} />
             <Route path="/contact" element={<Navigate to="/contacto" replace />} />
             <Route path="/process" element={<Navigate to="/" replace />} />
-            <Route path="/insights" element={<Navigate to="/" replace />} />
+            <Route path="/insights" element={<Navigate to="/blog" replace />} />
             <Route path="/servicios/software-a-medida" element={<Navigate to="/servicios/software" replace />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>

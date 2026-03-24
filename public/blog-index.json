@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Como automatizar operaciones con IA sin romper procesos ni crear mas caos",
+    "slug": "automatizar-operaciones-con-ia-sin-romper-procesos",
+    "description": "Una guia practica para automatizar tareas operativas con IA sin perder control, calidad de datos ni trazabilidad.",
+    "excerpt": "Automatizar no significa conectar herramientas al azar. La automatizacion que genera resultado parte de procesos claros, puntos de control y una forma simple de medir impacto.",
+    "author": "Francisco Ruiz",
+    "category": "Automatizacion",
+    "tags": [
+      "automatizacion",
+      "IA",
+      "agentes",
+      "procesos",
+      "operaciones"
+    ],
+    "publishedAt": "2026-03-24",
+    "updatedAt": "2026-03-24",
+    "featured": true,
+    "readingTimeMinutes": 4,
+    "path": "/blog/automatizar-operaciones-con-ia-sin-romper-procesos"
+  },
+  {
+    "title": "GEO vs SEO para empresas B2B: como aparecer en Google y tambien en respuestas de IA",
+    "slug": "geo-vs-seo-para-empresas-b2b",
+    "description": "Entiende como combinar GEO y SEO para que tu empresa aparezca tanto en resultados de busqueda tradicionales como en respuestas generadas por IA.",
+    "excerpt": "GEO y SEO no compiten. Cuando una empresa estructura bien su contenido, mejora su autoridad y responde preguntas concretas, gana visibilidad en Google y tambien en motores generativos.",
+    "author": "Francisco Clarke",
+    "category": "GEO y SEO",
+    "tags": [
+      "GEO",
+      "SEO",
+      "contenido B2B",
+      "IA",
+      "demanda organica"
+    ],
+    "publishedAt": "2026-03-24",
+    "updatedAt": "2026-03-24",
+    "featured": true,
+    "readingTimeMinutes": 4,
+    "path": "/blog/geo-vs-seo-para-empresas-b2b"
+  },
+  {
+    "title": "Que debe tener un website industrial para convertir trafico en reuniones comerciales",
+    "slug": "website-industrial-que-convierte-trafico-en-reuniones",
+    "description": "Los websites industriales no necesitan ser ruidosos. Necesitan explicar rapido, transmitir solvencia y mover a la accion con una estructura comercial clara.",
+    "excerpt": "Un website que convierte en industria no gana por moda visual. Gana por claridad, autoridad tecnica y una ruta sencilla hacia la consulta comercial.",
+    "author": "Francisco Clarke",
+    "category": "Websites",
+    "tags": [
+      "websites",
+      "conversion",
+      "industria",
+      "B2B",
+      "captacion"
+    ],
+    "publishedAt": "2026-03-24",
+    "updatedAt": "2026-03-24",
+    "featured": false,
+    "readingTimeMinutes": 4,
+    "path": "/blog/website-industrial-que-convierte-trafico-en-reuniones"
+  }
+]

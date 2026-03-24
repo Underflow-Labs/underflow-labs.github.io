@@ -224,7 +224,7 @@ export function ProcessStepsSection() {
   }, [hasEntered, progress, reducedMotion]);
 
   return (
-    <section id="como-trabajamos" ref={sectionRef} className="py-16 sm:py-20">
+    <section id="como-trabajamos" ref={sectionRef} className="section-spacing">
       <motion.div
         className="site-container"
         initial={reducedMotion ? false : { opacity: 0, y: 24 }}
