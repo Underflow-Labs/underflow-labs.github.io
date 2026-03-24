@@ -264,12 +264,19 @@
 
   .blog-prose {
     color: var(--text-primary);
-    font-size: 1rem;
-    line-height: 1.85;
+    max-width: 44rem;
+    font-size: clamp(1.05rem, 1rem + 0.18vw, 1.14rem);
+    line-height: 1.92;
   }
 
   .blog-prose > * + * {
-    margin-top: 1.25rem;
+    margin-top: 1.4rem;
+  }
+
+  .blog-prose > p:first-of-type {
+    color: var(--text-primary);
+    font-size: clamp(1.16rem, 1.08rem + 0.38vw, 1.42rem);
+    line-height: 1.78;
   }
 
   .blog-prose h2,
@@ -284,13 +291,19 @@
   }
 
   .blog-prose h2 {
-    margin-top: 3.5rem;
+    margin-top: 4rem;
     font-size: clamp(2rem, 3.5vw, 3rem);
   }
 
   .blog-prose h3 {
-    margin-top: 2.75rem;
+    margin-top: 3rem;
     font-size: clamp(1.45rem, 2.2vw, 2rem);
+  }
+
+  .blog-prose h2 + p,
+  .blog-prose h3 + p,
+  .blog-prose h4 + p {
+    margin-top: 0.95rem;
   }
 
   .blog-prose p,
@@ -309,11 +322,17 @@
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.22em;
+    transition: color 180ms ease;
+  }
+
+  .blog-prose a:hover {
+    color: var(--text-primary);
   }
 
   .blog-prose ul,
   .blog-prose ol {
-    padding-left: 1.25rem;
+    margin-top: 1.25rem;
+    padding-left: 1.4rem;
   }
 
   .blog-prose ul {
@@ -324,13 +343,19 @@
     list-style: decimal;
   }
 
+  .blog-prose li {
+    padding-left: 0.2rem;
+  }
+
   .blog-prose li + li {
-    margin-top: 0.55rem;
+    margin-top: 0.85rem;
   }
 
   .blog-prose blockquote {
-    border-left: 2px solid var(--accent-primary);
-    padding-left: 1rem;
+    border-left: 3px solid var(--accent-primary);
+    border-radius: 0 1rem 1rem 0;
+    padding: 1rem 1.25rem;
+    background: rgba(245, 242, 236, 0.04);
     font-style: italic;
   }
 
@@ -347,7 +372,8 @@
     overflow-x: auto;
     border: 1px solid rgba(245, 242, 236, 0.1);
     border-radius: 1rem;
-    padding: 1rem 1.1rem;
+    margin-top: 1.75rem;
+    padding: 1.05rem 1.1rem;
     background: rgba(12, 12, 12, 0.42);
   }
 
@@ -361,6 +387,13 @@
     width: 100%;
     border: 1px solid rgba(245, 242, 236, 0.08);
     border-radius: 1.5rem;
+    display: block;
+  }
+
+  .blog-prose hr {
+    margin-top: 2.5rem;
+    border: 0;
+    border-top: 1px solid rgba(245, 242, 236, 0.1);
   }
 }
 
