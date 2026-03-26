@@ -36,6 +36,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.underflowlabs.com/blog/robots-txt-para-ia-en-2026</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-26</lastmod>
+  </url>
+  <url>
     <loc>https://www.underflowlabs.com/blog/automatizar-operaciones-con-ia-sin-romper-procesos</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

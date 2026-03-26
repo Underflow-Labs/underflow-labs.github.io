@@ -23,6 +23,16 @@ Underflow Labs ayuda a empresas a vender mejor y operar con menos friccion media
 - Imagen social principal: https://www.underflowlabs.com/og/blog/index.png
 
 ## Articulos
+### Robots.txt para IA en 2026: como aparecer en ChatGPT Search y Google AI Mode sin abrir tu contenido a entrenamiento
+- URL: https://www.underflowlabs.com/blog/robots-txt-para-ia-en-2026
+- Publicado: 2026-03-26
+- Actualizado: 2026-03-26
+- Autor: Francisco Clarke
+- Categoria: GEO y SEO
+- Tags: robots.txt, ChatGPT Search, Google AI Mode, GEO, websites B2B
+- Resumen: Guia practica para configurar robots.txt, snippets y permisos de rastreo para que tu sitio pueda aparecer en AI search sin regalar mas acceso del necesario.
+- Imagen social: https://www.underflowlabs.com/og/blog/robots-txt-para-ia-en-2026.png
+
 ### Como automatizar operaciones con IA sin romper procesos ni crear mas caos
 - URL: https://www.underflowlabs.com/blog/automatizar-operaciones-con-ia-sin-romper-procesos
 - Publicado: 2026-03-24

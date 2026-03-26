@@ -1,5 +1,27 @@
 [
   {
+    "title": "Robots.txt para IA en 2026: como aparecer en ChatGPT Search y Google AI Mode sin abrir tu contenido a entrenamiento",
+    "slug": "robots-txt-para-ia-en-2026",
+    "description": "Guia practica para configurar robots.txt, snippets y permisos de rastreo para que tu sitio pueda aparecer en AI search sin regalar mas acceso del necesario.",
+    "excerpt": "No todos los bots de IA hacen lo mismo. Si mezclas search, training y previews en una sola decision, puedes perder visibilidad, control o ambas cosas.",
+    "author": "Francisco Clarke",
+    "category": "GEO y SEO",
+    "tags": [
+      "robots.txt",
+      "ChatGPT Search",
+      "Google AI Mode",
+      "GEO",
+      "websites B2B"
+    ],
+    "publishedAt": "2026-03-26",
+    "updatedAt": "2026-03-26",
+    "featured": false,
+    "readingTimeMinutes": 8,
+    "coverImage": "/og/blog/robots-txt-para-ia-en-2026.png",
+    "coverAlt": "Portada del articulo Robots.txt para IA en 2026: como aparecer en ChatGPT Search y Google AI Mode sin abrir tu contenido a entrenamiento",
+    "path": "/blog/robots-txt-para-ia-en-2026"
+  },
+  {
     "title": "Como automatizar operaciones con IA sin romper procesos ni crear mas caos",
     "slug": "automatizar-operaciones-con-ia-sin-romper-procesos",
     "description": "Una guia practica para automatizar tareas operativas con IA sin perder control, calidad de datos ni trazabilidad.",
