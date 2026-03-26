@@ -6,7 +6,7 @@
   "homepage": "https://www.underflowlabs.com/",
   "scripts": {
     "dev": "npm run content:sync && vite",
-    "build": "npm run content:sync && tsc -b && vite build",
+    "build": "node ./scripts/ensure-deps.mjs && npm run content:sync && tsc -b && vite build",
     "content:sync": "node ./scripts/sync-content.mjs",
     "post:new": "node ./scripts/new-post.mjs",
     "publish:content": "node ./scripts/publish-content.mjs",

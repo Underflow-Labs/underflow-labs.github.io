@@ -68,3 +68,11 @@ Flujo recomendado para automatizacion:
 2. Ejecutar `npm run publish:content`
 3. El script construye, prerenderiza, hace commit y push a `main`
 4. GitHub Actions publica automaticamente en GitHub Pages
+
+### Nota sobre worktrees y ejecucion autonoma
+
+- `npm run publish:content` ahora soporta ejecucion desde `detached HEAD` siempre que el commit actual este alineado con `main`
+- en ese caso hace push con `HEAD:main`
+- si el worktree no esta basado en `main` o no puede garantizar fast-forward seguro, falla con mensaje explicito
+- si faltan dependencias locales para build, el script intenta repararlas con `npm ci` automaticamente
+- la automatizacion no deberia depender de `CODEX_HOME` dentro del repo; si necesita memoria operativa, usar ruta absoluta o fallback cuando la variable no exista

@@ -49,10 +49,58 @@ function getArg(flag) {
 }
 
 const npmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
-const branch = run("git", ["branch", "--show-current"]);
+const pushRemote = getArg("--remote") ?? "origin";
+const targetBranch = getArg("--branch") ?? "main";
+const currentBranch = run("git", ["branch", "--show-current"]);
 
-if (branch !== "main") {
-  console.error(`La publicacion automatica esta configurada para main. Rama actual: ${branch}`);
+function hasRef(ref) {
+  const result = spawnSync("git", ["show-ref", "--verify", "--quiet", ref], {
+    stdio: "pipe",
+    shell: process.platform === "win32",
+  });
+
+  return result.status === 0;
+}
+
+function canFastForwardToTarget(remote, branch) {
+  const remoteRef = `refs/remotes/${remote}/${branch}`;
+  const localRef = `refs/heads/${branch}`;
+  const baseRef = hasRef(remoteRef) ? `${remote}/${branch}` : hasRef(localRef) ? branch : undefined;
+
+  if (!baseRef) {
+    return false;
+  }
+
+  const result = spawnSync("git", ["merge-base", "--is-ancestor", baseRef, "HEAD"], {
+    stdio: "pipe",
+    shell: process.platform === "win32",
+  });
+
+  return result.status === 0;
+}
+
+let pushRefspec;
+
+if (currentBranch === targetBranch) {
+  pushRefspec = targetBranch;
+} else if (!currentBranch) {
+  run("git", ["fetch", pushRemote, targetBranch, "--quiet"]);
+
+  if (!canFastForwardToTarget(pushRemote, targetBranch)) {
+    console.error(
+      [
+        `La publicacion automatica esta en detached HEAD y no puede confirmar un push seguro a ${targetBranch}.`,
+        `Sincroniza este worktree con ${pushRemote}/${targetBranch} o publica desde una rama basada en ${targetBranch}.`,
+      ].join(" "),
+    );
+    process.exit(1);
+  }
+
+  pushRefspec = `HEAD:${targetBranch}`;
+} else {
+  console.error(
+    `La publicacion automatica solo puede empujar a ${targetBranch}. Rama actual: ${currentBranch}.`,
+  );
   process.exit(1);
 }
 
@@ -70,6 +118,6 @@ const defaultMessage = `content: publish blog update ${new Date().toISOString().
 const commitMessage = getArg("--message") ?? defaultMessage;
 
 runInherited("git", ["commit", "-m", commitMessage]);
-runInherited("git", ["push", "origin", branch]);
+runInherited("git", ["push", pushRemote, pushRefspec]);
 
-console.log("Contenido publicado. GitHub Actions se encargara del deploy.");
+console.log(`Contenido publicado hacia ${pushRemote}/${targetBranch}. GitHub Actions se encargara del deploy.`);
