@@ -76,3 +76,5 @@ Flujo recomendado para automatizacion:
 - si el worktree no esta basado en `main` o no puede garantizar fast-forward seguro, falla con mensaje explicito
 - si faltan dependencias locales para build, el script intenta repararlas con `npm ci` automaticamente
 - la automatizacion no deberia depender de `CODEX_HOME` dentro del repo; si necesita memoria operativa, usar ruta absoluta o fallback cuando la variable no exista
+- para automations recurrentes conviene apuntar el `cwd` a la ruta canonica del repo (`C:\Users\franc\Documents\Proyectos\Underflow Labs`) y no a un worktree efimero o atrasado
+- `npm run publish:content` ahora imprime tambien el hash final del commit publicado para que la automatizacion lo pueda reportar sin pasos extra

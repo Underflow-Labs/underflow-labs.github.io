@@ -120,4 +120,7 @@ const commitMessage = getArg("--message") ?? defaultMessage;
 runInherited("git", ["commit", "-m", commitMessage]);
 runInherited("git", ["push", pushRemote, pushRefspec]);
 
+const publishedCommit = run("git", ["rev-parse", "HEAD"]);
+
 console.log(`Contenido publicado hacia ${pushRemote}/${targetBranch}. GitHub Actions se encargara del deploy.`);
+console.log(`Commit publicado: ${publishedCommit}`);
