@@ -23,6 +23,16 @@ Underflow Labs ayuda a empresas a vender mejor y operar con menos friccion media
 - Imagen social principal: https://www.underflowlabs.com/og/blog/index.png
 
 ## Articulos
+### Como medir GEO en 2026: GA4, Search Console y logs para saber si ChatGPT Search y Google AI Mode generan pipeline
+- URL: https://www.underflowlabs.com/blog/como-medir-geo-en-2026
+- Publicado: 2026-03-30
+- Actualizado: 2026-03-30
+- Autor: Francisco Clarke
+- Categoria: GEO y SEO
+- Tags: GEO, ChatGPT Search, Google AI Mode, GA4, Search Console
+- Resumen: Aprende a medir visibilidad, trafico y conversiones desde ChatGPT Search y Google AI Mode con un sistema real de GA4, Search Console y logs.
+- Imagen social: https://www.underflowlabs.com/og/blog/como-medir-geo-en-2026.png
+
 ### Robots.txt para IA en 2026: como aparecer en ChatGPT Search y Google AI Mode sin abrir tu contenido a entrenamiento
 - URL: https://www.underflowlabs.com/blog/robots-txt-para-ia-en-2026
 - Publicado: 2026-03-26

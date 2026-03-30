@@ -1,5 +1,27 @@
 [
   {
+    "title": "Como medir GEO en 2026: GA4, Search Console y logs para saber si ChatGPT Search y Google AI Mode generan pipeline",
+    "slug": "como-medir-geo-en-2026",
+    "description": "Aprende a medir visibilidad, trafico y conversiones desde ChatGPT Search y Google AI Mode con un sistema real de GA4, Search Console y logs.",
+    "excerpt": "GEO sin medicion no es estrategia. Es entusiasmo. Si quieres saber si AI search trae negocio, necesitas separar visibilidad, referrals y pipeline con un esquema de medicion util.",
+    "author": "Francisco Clarke",
+    "category": "GEO y SEO",
+    "tags": [
+      "GEO",
+      "ChatGPT Search",
+      "Google AI Mode",
+      "GA4",
+      "Search Console"
+    ],
+    "publishedAt": "2026-03-30",
+    "updatedAt": "2026-03-30",
+    "featured": false,
+    "readingTimeMinutes": 9,
+    "coverImage": "/og/blog/como-medir-geo-en-2026.png",
+    "coverAlt": "Portada del articulo Como medir GEO en 2026: GA4, Search Console y logs para saber si ChatGPT Search y Google AI Mode generan pipeline",
+    "path": "/blog/como-medir-geo-en-2026"
+  },
+  {
     "title": "Robots.txt para IA en 2026: como aparecer en ChatGPT Search y Google AI Mode sin abrir tu contenido a entrenamiento",
     "slug": "robots-txt-para-ia-en-2026",
     "description": "Guia practica para configurar robots.txt, snippets y permisos de rastreo para que tu sitio pueda aparecer en AI search sin regalar mas acceso del necesario.",

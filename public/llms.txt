@@ -12,6 +12,7 @@
 - [Blog](https://www.underflowlabs.com/blog): articulos sobre GEO, SEO, automatizacion, software y conversion.
 
 ## Articulos recientes
+- [Como medir GEO en 2026: GA4, Search Console y logs para saber si ChatGPT Search y Google AI Mode generan pipeline](https://www.underflowlabs.com/blog/como-medir-geo-en-2026): Aprende a medir visibilidad, trafico y conversiones desde ChatGPT Search y Google AI Mode con un sistema real de GA4, Search Console y logs.
 - [Robots.txt para IA en 2026: como aparecer en ChatGPT Search y Google AI Mode sin abrir tu contenido a entrenamiento](https://www.underflowlabs.com/blog/robots-txt-para-ia-en-2026): Guia practica para configurar robots.txt, snippets y permisos de rastreo para que tu sitio pueda aparecer en AI search sin regalar mas acceso del necesario.
 - [Como automatizar operaciones con IA sin romper procesos ni crear mas caos](https://www.underflowlabs.com/blog/automatizar-operaciones-con-ia-sin-romper-procesos): Una guia practica para automatizar tareas operativas con IA sin perder control, calidad de datos ni trazabilidad.
 - [GEO vs SEO para empresas B2B: como aparecer en Google y tambien en respuestas de IA](https://www.underflowlabs.com/blog/geo-vs-seo-para-empresas-b2b): Entiende como combinar GEO y SEO para que tu empresa aparezca tanto en resultados de busqueda tradicionales como en respuestas generadas por IA.
